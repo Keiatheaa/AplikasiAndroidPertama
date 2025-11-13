@@ -1,5 +1,6 @@
 package com.example.aplikasiandroidpertama
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
@@ -38,6 +39,13 @@ class MainActivity : AppCompatActivity() {
                 )
                     .show()
             }
+        }
+        val buttonDaftar = findViewById<Button>(R.id.buttonDaftar)
+
+        buttonDaftar.setOnClickListener {
+            val intentPindah = Intent(this, PendaftaranActivity::class.java)
+            startActivity(intentPindah)
+            finish()
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
