@@ -3,12 +3,24 @@ package com.example.aplikasiandroidpertama
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class PendaftaranActivity : AppCompatActivity() {
+    // Deklarasi semua variabel EditText dan Button
+    private lateinit var editUsername: EditText
+    private lateinit var editEmail: EditText
+    private lateinit var editFirstName: EditText
+    private lateinit var editLastName: EditText
+    private lateinit var editPassword: EditText
+    private lateinit var editConfirmPassword: EditText
+    private lateinit var btnSubmit: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -16,8 +28,8 @@ class PendaftaranActivity : AppCompatActivity() {
 
         val backLogin = findViewById<Button>(R.id.buttonCancel)
         backLogin.setOnClickListener {
-        val intentLogin = Intent(this, MainActivity::class.java)
-        startActivity(intentLogin)
+            val intentLogin = Intent(this, MainActivity::class.java)
+            startActivity(intentLogin)
             finish()
         }
 
@@ -26,5 +38,69 @@ class PendaftaranActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // Inisialisasi semua elemen UI dari layout
+        editUsername = findViewById(R.id.editTextUsername)
+        editEmail = findViewById(R.id.editTextEmail)
+        editFirstName = findViewById(R.id.editFirstName)
+        editLastName = findViewById(R.id.editLastName)
+        editPassword = findViewById(R.id.editTextPassword)
+        editConfirmPassword = findViewById(R.id.editTextPassword)
+        btnSubmit = findViewById(R.id.buttonSubmit)
+
+        //Menerapkan Logika Validasi saat tombol kirim ditekan
+        btnSubmit.setOnClickListener {
+            validataForm()
+        }
+
     }
+    /**
+     * Fungsi untuk memvalidasi semua input field.
+     */
+    private fun validataForm() {
+        val username = editUsername.text.toString().trim()
+        val email = editEmail.text.toString().trim()
+        val firstName = editFirstName.text.toString().trim()
+        val lastName = editLastName.text.toString().trim()
+        val password = editPassword.text.toString()
+        val confirmPassword = editConfirmPassword.text.toString()
+
+        if(!username.isDigitsOnly()){
+            Toast.makeText(this,"Username harus angka!", Toast.LENGTH_LONG).show()
+        }
+
+        // 1. Pengecekan Field Kosong
+        if (username.isEmpty() || email.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()){
+            Toast.makeText(this, "Semua field input wajib diisi!", Toast.LENGTH_LONG).show()
+            return
+        }
+
+        // 2. Pengecekan Kecocokan Password
+        if (password == confirmPassword) {
+            // Logika jika semua field terisi dan password cocok.
+
+            // Modifikasi Dimulai Di Sini
+            val fullName = "$firstName $lastName"
+            Toast.makeText(this, "User $fullName berhasil didaftarkan.", Toast.LENGTH_LONG).show()
+
+            val intentPindahDashboard  = Intent(this, DashboardActivity::class.java)
+
+            intentPindahDashboard.putExtra("NAMA_DEPAN", firstName)
+            intentPindahDashboard.putExtra("NAMA_BELAKANG", lastName)
+            intentPindahDashboard.putExtra("USERNAME", username.toIntOrNull() ?: 0)
+            intentPindahDashboard.putExtra("EMAIL", email)
+
+
+            startActivity(intentPindahDashboard)
+
+            //Di sini Anda bisa menambahkan fungsi untuk mengirimkan fungsi untuk mengirim data ke server
+            //submitFormData()
+        } else {
+            // Logika jika password tidak cocok
+            Toast.makeText(this, "Password dan Konfirmasi Password tidak cocok.", Toast.LENGTH_LONG).show()
+
+            // opsional:kosongkan field konfirmasi password
+            editConfirmPassword.setText("")
+        }
+    }
+
 }
