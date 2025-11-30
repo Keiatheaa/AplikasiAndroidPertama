@@ -5,7 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F4"
     android:padding="5sp"
     tools:context=".DashboardActivity">
 
@@ -28,7 +27,7 @@
             android:gravity="center"
             android:text="DASHBOARD"
             android:textColor="#FE5E7C4C"
-            android:textSize="32sp"
+            android:textSize="34sp"
             android:textStyle="bold" />
 
         <!-- Card Data: Nama Depan -->
@@ -152,18 +151,6 @@
                 android:textSize="18sp"
                 android:textStyle="normal" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btnKeluar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#5E7C4C"
-            android:paddingVertical="10sp"
-            android:text="LOGOUT"
-            android:textColor="#0A0A1F"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:cornerRadius="20sp" />
 
     </LinearLayout>
 </ScrollView>

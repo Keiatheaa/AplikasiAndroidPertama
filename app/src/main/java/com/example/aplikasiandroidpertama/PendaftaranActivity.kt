@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PendaftaranActivity : AppCompatActivity() {
     // Deklarasi semua variabel EditText dan Button
@@ -66,6 +69,7 @@ class PendaftaranActivity : AppCompatActivity() {
 
         if(!username.isDigitsOnly()){
             Toast.makeText(this,"Username harus angka!", Toast.LENGTH_LONG).show()
+            return
         }
 
         // 1. Pengecekan Field Kosong
@@ -77,6 +81,18 @@ class PendaftaranActivity : AppCompatActivity() {
         // 2. Pengecekan Kecocokan Password
         if (password == confirmPassword) {
             // Logika jika semua field terisi dan password cocok.
+
+            val userToSaver = UserEntity (
+                namaDepan = firstName,
+                namaBelakang = lastName,
+                username = username,
+                email = email
+            )
+
+            val db = AbsenDatabase.getDatabase(this)
+            lifecycleScope.launch (Dispatchers.IO){
+                db.UserDao().insertUser(userToSaver)
+            }
 
             // Modifikasi Dimulai Di Sini
             val fullName = "$firstName $lastName"
