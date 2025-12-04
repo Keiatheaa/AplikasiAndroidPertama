@@ -3,6 +3,7 @@ package com.example.aplikasiandroidpertama
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import javax.security.auth.callback.PasswordCallback
 
 @Entity( tableName = "users" )
 data class UserEntity (
@@ -14,6 +15,9 @@ data class UserEntity (
     @ColumnInfo ( name = "last name")
     val namaBelakang : String,
     val username : String,
-    val email : String
+    val email : String,
+
+    val password : String
+
 
 )

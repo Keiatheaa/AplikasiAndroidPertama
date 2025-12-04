@@ -86,7 +86,8 @@ class PendaftaranActivity : AppCompatActivity() {
                 namaDepan = firstName,
                 namaBelakang = lastName,
                 username = username,
-                email = email
+                email = email,
+                password = password
             )
 
             val db = AbsenDatabase.getDatabase(this)
@@ -98,15 +99,14 @@ class PendaftaranActivity : AppCompatActivity() {
             val fullName = "$firstName $lastName"
             Toast.makeText(this, "User $fullName berhasil didaftarkan.", Toast.LENGTH_LONG).show()
 
-            val intentPindahDashboard  = Intent(this, DashboardActivity::class.java)
+            editUsername.setText("")
+            editEmail.setText("")
+            editFirstName.setText("")
+            editLastName.setText("")
+            editPassword.setText("")
+            editConfirmPassword.setText("")
 
-            intentPindahDashboard.putExtra("NAMA_DEPAN", firstName)
-            intentPindahDashboard.putExtra("NAMA_BELAKANG", lastName)
-            intentPindahDashboard.putExtra("USERNAME", username.toIntOrNull() ?: 0)
-            intentPindahDashboard.putExtra("EMAIL", email)
 
-
-            startActivity(intentPindahDashboard)
 
             //Di sini Anda bisa menambahkan fungsi untuk mengirimkan fungsi untuk mengirim data ke server
             //submitFormData()
