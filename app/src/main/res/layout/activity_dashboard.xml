@@ -150,7 +150,14 @@
                 android:textColor="#0B0B0B"
                 android:textSize="18sp"
                 android:textStyle="normal" />
+
         </LinearLayout>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:name="com.example.aplikasiandroidpertama.OsmMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="225dp" />
 
     </LinearLayout>
 </ScrollView>
