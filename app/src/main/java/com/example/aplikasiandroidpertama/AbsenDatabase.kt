@@ -8,12 +8,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database ( entities = [
-    UserEntity :: class
-], version = 2,
+    UserEntity :: class,
+    AttendanceEntity ::class
+], version = 3,
     exportSchema = false)
 
 abstract class AbsenDatabase : RoomDatabase() {
     abstract fun UserDao() : UserDao
+    abstract fun attendanceDao(): AttedanceDao
+
             companion object {
                 @Volatile
                 private var INSTANCE : AbsenDatabase? = null
@@ -24,7 +27,7 @@ abstract class AbsenDatabase : RoomDatabase() {
                             context.applicationContext,
                             AbsenDatabase::class.java,
                             "Aplikasiabsen"
-                        ).addMigrations(MIGRATION_1_2).build()
+                        ).addMigrations(MIGRATION_2_3).build()
                         INSTANCE = instance
                         instance
                     }

@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 
 class DashboardActivity : AppCompatActivity() {
     private lateinit var userDao: UserDao
+    public var id: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +23,7 @@ class DashboardActivity : AppCompatActivity() {
         val db = AbsenDatabase.getDatabase(this)
         userDao = db.UserDao()
 
-        val id = intent.getIntExtra("ID", 0)
+        id = intent.getIntExtra("ID", 0)
 
         //val nama_depan = intent.getStringExtra("NAMA_DEPAN")
         //val nama_belakang = intent.getStringExtra("NAMA_BELAKANG")
